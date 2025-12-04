@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Request Form</title>
+
+<style>
+  :root { --accent:#0b76ef; font-family:Inter,system-ui,Segoe UI,Roboto,Arial; }
+  body{
+    display:flex;align-items:center;justify-content:center;
+    min-height:100vh;margin:0;background:#f6f8fb;padding:28px;
+  }
+  .card{
+    width:100%;max-width:780px;background:#fff;border-radius:12px;
+    box-shadow:0 6px 30px rgba(20,30,40,0.06);padding:28px;
+  }
+  h1{margin:0 0 18px;font-size:24px}
+  label{display:block;margin:12px 0 6px;font-weight:600;color:#222}
+  input[type=text], input[type=email], input[type=file]{
+    width:100%;padding:12px;border-radius:8px;border:1px solid #e3e7ee;box-sizing:border-box;
+  }
+  button{
+    background:var(--accent);color:#fff;padding:14px 18px;border-radius:10px;
+    border:0;font-weight:700;cursor:pointer;margin-top:18px;width:100%;
+  }
+  .hidden{display:none}
+  #msg{font-size:14px;margin-top:12px;}
+</style>
+</head>
+
+<body>
+  <main class="card">
+    <h1>Request Form</h1>
+
+    <form id="requestForm" enctype="multipart/form-data">
+
+      <!-- Full Name -->
+      <label for="fullname">Full Name</label>
+      <input id="fullname" name="fullname" type="text" required />
+
+      <!-- ID Number -->
+      <label for="idnumber">ID Number</label>
+      <input id="idnumber" name="idnumber" type="text" maxlength="10" required />
+
+      <!-- Phone Number -->
+      <label for="phone">Phone Number</label>
+      <input id="phone" name="phone" type="text" maxlength="10" required />
+
+      <!-- Email -->
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" required />
+
+      <hr style="margin:25px 0">
+
+      <h3>Upload Required Documents</h3>
+
+      <label for="file1">Iqama</label>
+      <input id="file1" name="file1" type="file" required />
+
+      <label for="file2">Muqeem</label>
+      <input id="file2" name="file2" type="file" required />
+
+      <label for="file3">Passport</label>
+      <input id="file3" name="file3" type="file" required />
+
+      <label for="file4">Fitness</label>
+      <input id="file4" name="file4" type="file" required />
+
+      <label for="file5">Agreement</label>
+      <input id="file5" name="file5" type="file" required />
+
+      <!-- Honeypot -->
+      <div class="hidden"><input name="hp" autocomplete="off"></div>
+
+      <button type="submit">Submit</button>
+
+      <div id="msg" aria-live="polite"></div>
+    </form>
+  </main>
+
+<script>
+// ------------------- CONFIG --------------------
+const WEB_APP_URL = "PASTE_YOUR_SCRIPT_URL_HERE";  // MUST END WITH /exec
+// ------------------------------------------------
+
+const form = document.getElementById("requestForm");
+const msg  = document.getElementById("msg");
+
+// ------------------- HANDLE FORM SUBMIT --------------------
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  msg.style.color = "#000";
+  msg.textContent = "Sending...";
+
+  // Honeypot (spam protection)
+  if (form.hp.value) {
+    msg.style.color = "red";
+    msg.textContent = "Spam detected.";
+    return;
+  }
+
+  const formData = new FormData(form);
+
+  try {
+    const response = await fetch(WEB_APP_URL, {
+      method: "POST",
+      body: formData
+    });
+
+    const json = await response.json();
+
+    if (json.status === "success") {
+      msg.style.color = "green";
+      msg.textContent = json.message;
+      form.reset();
+    } else {
+      msg.style.color = "red";
+      msg.textContent = json.message;
+    }
+
+  } catch (error) {
+    msg.style.color = "red";
+    msg.textContent = "Failed to send. Please try again.";
+  }
+});
+</script>
+
+</body>
+</html>
