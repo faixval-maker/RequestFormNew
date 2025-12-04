@@ -1,4 +1,4 @@
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxb6NrKT_xKJKaQ6ub6F1jbTGv_FuFpiGXx7-_hKSGK_9or7-SvU6EsbwU_bvrXteyL8A/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbySCyw0UqiFP-VdUreRC3-koMV41I0tLLQNkJT8XxvAp1jZfTtQoutog304Iu6i1zAoBA/exec";
 
 const form = document.getElementById("myForm");
 const msg = document.getElementById("msg");
