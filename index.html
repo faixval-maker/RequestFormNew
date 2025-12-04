@@ -6,26 +6,108 @@
 <title>Request Form</title>
 
 <style>
-  :root { --accent:#0b76ef; font-family:Inter,system-ui,Segoe UI,Roboto,Arial; }
+  :root { 
+    --accent:#0b76ef; 
+    --green:#22c55e;
+    --red:#ef4444;
+    font-family:Inter,system-ui,Segoe UI,Roboto,Arial; 
+  }
+
+  /* PAGE BACKGROUND */
   body{
-    display:flex;align-items:center;justify-content:center;
-    min-height:100vh;margin:0;background:#f6f8fb;padding:28px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    margin:0;
+    padding:30px;
+    background: radial-gradient(circle at top left,#d8f3dc,#fef6e4,#ddeaff);
   }
+
+  /* CARD */
   .card{
-    width:100%;max-width:780px;background:#fff;border-radius:12px;
-    box-shadow:0 6px 30px rgba(20,30,40,0.06);padding:28px;
+    width:100%;
+    max-width:780px;
+    background:rgba(255,255,255,0.85);
+    border-radius:18px;
+    backdrop-filter:blur(8px);
+    box-shadow:0 10px 40px rgba(0,0,0,0.08);
+    padding:34px;
+    animation:fadeIn .6s ease-out;
   }
-  h1{margin:0 0 18px;font-size:24px}
-  label{display:block;margin:12px 0 6px;font-weight:600;color:#222}
-  input[type=text], input[type=email], input[type=file]{
-    width:100%;padding:12px;border-radius:8px;border:1px solid #e3e7ee;box-sizing:border-box;
+
+  @keyframes fadeIn {
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
   }
+
+  h1{
+    margin:0 0 18px;
+    font-size:28px;
+    font-weight:700;
+    color:#111;
+  }
+
+  h3{
+    font-size:20px;
+    margin-top:28px;
+    color:#0b76ef;
+  }
+
+  label{
+    display:block;
+    margin:14px 0 6px;
+    font-weight:600;
+    color:#222;
+  }
+
+  input[type=text], 
+  input[type=email], 
+  input[type=file]{
+    width:100%;
+    padding:13px;
+    border-radius:10px;
+    border:1px solid #dce3ee;
+    background:#fafbff;
+    box-sizing:border-box;
+    transition:border 0.25s;
+  }
+
+  input:focus{
+    border-color:#0b76ef;
+    outline:none;
+  }
+
+  /* BUTTON */
   button{
-    background:var(--accent);color:#fff;padding:14px 18px;border-radius:10px;
-    border:0;font-weight:700;cursor:pointer;margin-top:18px;width:100%;
+    background:var(--accent);
+    color:#fff;
+    padding:15px;
+    border-radius:12px;
+    border:0;
+    font-weight:700;
+    cursor:pointer;
+    margin-top:26px;
+    width:100%;
+    font-size:16px;
+    transition:0.25s;
   }
+
+  button.success{
+    background:var(--green) !important;
+  }
+
+  button.error{
+    background:var(--red) !important;
+  }
+
+  #msg{
+    font-size:15px;
+    margin-top:14px;
+    font-weight:600;
+  }
+
   .hidden{display:none}
-  #msg{font-size:14px;margin-top:12px;}
 </style>
 </head>
 
@@ -51,7 +133,7 @@
       <label for="email">Email</label>
       <input id="email" name="email" type="email" required />
 
-      <hr style="margin:25px 0">
+      <hr style="margin:30px 0">
 
       <h3>Upload Required Documents</h3>
 
@@ -73,38 +155,46 @@
       <!-- Honeypot -->
       <div class="hidden"><input name="hp" autocomplete="off"></div>
 
-      <button type="submit">Submit</button>
+      <button type="submit" id="submitBtn">Submit</button>
 
       <div id="msg" aria-live="polite"></div>
     </form>
   </main>
 
 <script>
-// ------------------- CONFIG --------------------
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby_T3Y8ZkOkqus75XF_vydaph_u5O4ORsAyM6zj-aWecm8Sg56IFdxOzWk5Zz8Q3YvG1A/exec";  // MUST END WITH /exec
-// ------------------------------------------------
+const WEB_APP_URL = "YOUR_WEB_APP_URL_HERE";
 
 const form = document.getElementById("requestForm");
 const msg  = document.getElementById("msg");
+const btn  = document.getElementById("submitBtn");
 
-// ------------------- HANDLE FORM SUBMIT --------------------
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  msg.style.color = "#000";
-  msg.textContent = "Sending...";
+  // 10-digit phone number must start with 05
+  const phone = document.getElementById("phone").value;
+  const id = document.getElementById("idnumber").value;
 
-  // Honeypot (spam protection)
-  if (form.hp.value) {
+  if (!/^05\d{8}$/.test(phone)) {
     msg.style.color = "red";
-    msg.textContent = "Spam detected.";
+    msg.textContent = "Phone number must be 10 digits and start with 05.";
     return;
   }
+
+  if (!/^\d{10}$/.test(id)) {
+    msg.style.color = "red";
+    msg.textContent = "ID number must be exactly 10 digits.";
+    return;
+  }
+
+  msg.style.color = "#000";
+  msg.textContent = "Sending...";
+  btn.classList.remove("success","error");
 
   const formData = new FormData(form);
 
   try {
-    const response = await fetch(WEB_APP_URL, {
+    const response = await fetch(https://script.google.com/macros/s/AKfycby_T3Y8ZkOkqus75XF_vydaph_u5O4ORsAyM6zj-aWecm8Sg56IFdxOzWk5Zz8Q3YvG1A/exec, {
       method: "POST",
       body: formData
     });
@@ -114,15 +204,18 @@ form.addEventListener("submit", async (e) => {
     if (json.status === "success") {
       msg.style.color = "green";
       msg.textContent = json.message;
+      btn.classList.add("success");
       form.reset();
     } else {
       msg.style.color = "red";
       msg.textContent = json.message;
+      btn.classList.add("error");
     }
 
   } catch (error) {
     msg.style.color = "red";
     msg.textContent = "Failed to send. Please try again.";
+    btn.classList.add("error");
   }
 });
 </script>
