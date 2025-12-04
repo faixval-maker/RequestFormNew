@@ -1,0 +1,36 @@
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby_T3Y8ZkOkqus75XF_vydaph_u5O4ORsAyM6zj-aWecm8Sg56IFdxOzWk5Zz8Q3YvG1A/exec";
+
+const form = document.getElementById("myForm");
+const msg = document.getElementById("msg");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  msg.textContent = "Sending...";
+
+  const data = {
+    name: form.name.value.trim(),
+    email: form.email.value.trim(),
+    phone: form.phone.value.trim(),
+    notes: form.notes.value.trim()
+  };
+
+  try {
+    const res = await fetch(WEB_APP_URL, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" }
+    });
+
+    if (!res.ok) throw new Error("Network error");
+
+    const json = await res.json();
+    if (json.status === "ok") {
+      msg.textContent = "Submitted successfully!";
+      form.reset();
+    } else {
+      msg.textContent = "Server error.";
+    }
+  } catch (err) {
+    msg.textContent = "Error sending form.";
+  }
+});
