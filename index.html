@@ -1,42 +1,38 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Request Form</title>
 <style>
-  :root { 
-    --accent:#0b76ef; 
-    --green:#22c55e;
-    --red:#ef4444;
-    font-family:Inter,system-ui,Segoe UI,Roboto,Arial; 
-  }
-
-  body{
-    display:flex; align-items:center; justify-content:center;
-    min-height:100vh; margin:0; padding:30px;
-    background: radial-gradient(circle at top left,#d8f3dc,#fef6e4,#ddeaff);
-  }
-
-  .card{
-    width:100%; max-width:780px;
-    background:rgba(255,255,255,0.85); border-radius:18px;
-    backdrop-filter:blur(8px); box-shadow:0 10px 40px rgba(0,0,0,0.08);
-    padding:34px; animation:fadeIn .6s ease-out;
-  }
-
-  @keyframes fadeIn { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
-
-  h1{ margin:0 0 18px; font-size:28px; font-weight:700; color:#111; }
-  h3{ font-size:20px; margin-top:28px; color:#0b76ef; }
-  label{ display:block; margin:14px 0 6px; font-weight:600; color:#222; }
-  input[type=text], input[type=email], input[type=file]{ width:100%; padding:13px; border-radius:10px; border:1px solid #dce3ee; background:#fafbff; box-sizing:border-box; transition:border 0.25s; }
-  input:focus{ border-color:#0b76ef; outline:none; }
-  button{ background:var(--accent); color:#fff; padding:15px; border-radius:12px; border:0; font-weight:700; cursor:pointer; margin-top:26px; width:100%; font-size:16px; transition:0.25s; }
-  button.success{ background:var(--green) !important; }
-  button.error{ background:var(--red) !important; }
-  #msg{ font-size:15px; margin-top:14px; font-weight:600; }
-  .hidden{display:none}
+:root { 
+  --accent:#0b76ef; 
+  --green:#22c55e;
+  --red:#ef4444;
+  font-family:Inter,system-ui,Segoe UI,Roboto,Arial; 
+}
+body{
+  display:flex; align-items:center; justify-content:center;
+  min-height:100vh; margin:0; padding:30px;
+  background: radial-gradient(circle at top left,#d8f3dc,#fef6e4,#ddeaff);
+}
+.card{
+  width:100%; max-width:780px; background:rgba(255,255,255,0.85);
+  border-radius:18px; backdrop-filter:blur(8px);
+  box-shadow:0 10px 40px rgba(0,0,0,0.08);
+  padding:34px; animation:fadeIn .6s ease-out;
+}
+@keyframes fadeIn { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+h1{ margin:0 0 18px; font-size:28px; font-weight:700; color:#111; }
+h3{ font-size:20px; margin-top:28px; color:#0b76ef; }
+label{ display:block; margin:14px 0 6px; font-weight:600; color:#222; }
+input[type=text], input[type=email], input[type=file]{ width:100%; padding:13px; border-radius:10px; border:1px solid #dce3ee; background:#fafbff; box-sizing:border-box; transition:border 0.25s; }
+input:focus{ border-color:#0b76ef; outline:none; }
+button{ background:var(--accent); color:#fff; padding:15px; border-radius:12px; border:0; font-weight:700; cursor:pointer; margin-top:26px; width:100%; font-size:16px; transition:0.25s; }
+button.success{ background:var(--green) !important; }
+button.error{ background:var(--red) !important; }
+#msg{ font-size:15px; margin-top:14px; font-weight:600; }
+.hidden{display:none}
 </style>
 </head>
 <body>
@@ -45,30 +41,25 @@
   <h1>Request Form</h1>
   <form id="requestForm">
     <label for="fullname">Full Name</label>
-    <input id="fullname" name="fullname" type="text" required />
+    <input id="fullname" name="fullname" type="text" required>
 
     <label for="idnumber">ID Number</label>
-    <input id="idnumber" name="idnumber" type="text" maxlength="10" required />
+    <input id="idnumber" name="idnumber" type="text" maxlength="10" required>
 
     <label for="phone">Phone Number</label>
-    <input id="phone" name="phone" type="text" maxlength="10" required />
+    <input id="phone" name="phone" type="text" maxlength="10" required>
 
     <label for="email">Email</label>
-    <input id="email" name="email" type="email" required />
+    <input id="email" name="email" type="email" required>
 
     <hr style="margin:30px 0">
 
     <h3>Upload Required Documents</h3>
-    <label for="file1">Iqama</label>
-    <input id="file1" name="file1" type="file" required />
-    <label for="file2">Muqeem</label>
-    <input id="file2" name="file2" type="file" required />
-    <label for="file3">Passport</label>
-    <input id="file3" name="file3" type="file" required />
-    <label for="file4">Fitness</label>
-    <input id="file4" name="file4" type="file" required />
-    <label for="file5">Agreement</label>
-    <input id="file5" name="file5" type="file" required />
+    <label for="file1">Iqama</label><input id="file1" name="file1" type="file" required>
+    <label for="file2">Muqeem</label><input id="file2" name="file2" type="file" required>
+    <label for="file3">Passport</label><input id="file3" name="file3" type="file" required>
+    <label for="file4">Fitness</label><input id="file4" name="file4" type="file" required>
+    <label for="file5">Agreement</label><input id="file5" name="file5" type="file" required>
 
     <div class="hidden"><input name="hp" autocomplete="off"></div>
     <button type="submit" id="submitBtn">Submit</button>
@@ -77,7 +68,7 @@
 </main>
 
 <script>
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbySCyw0UqiFP-VdUreRC3-koMV41I0tLLQNkJT8XxvAp1jZfTtQoutog304Iu6i1zAoBA/exec"; // replace with your Apps Script URL
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyv1PstRriR5ZbYup6tjkrYK20ICcdCBKSv_nw70hIYdAHlT6KQJnuWw_zTsJ-eY--eAQ/exec"; // Replace with your Apps Script URL
 
 const form = document.getElementById("requestForm");
 const msg = document.getElementById("msg");
@@ -94,7 +85,6 @@ form.addEventListener("submit", async (e) => {
   const phone = form.phone.value.trim();
   const email = form.email.value.trim();
 
-  // Validate phone & ID
   if (!/^05\d{8}$/.test(phone)) return showError("Phone number must be 10 digits and start with 05.");
   if (!/^\d{10}$/.test(id)) return showError("ID number must be exactly 10 digits.");
 
